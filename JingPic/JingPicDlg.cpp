@@ -174,6 +174,12 @@ void CJingPicDlg::OnDropFiles(HDROP hDropInfo)
 	DragFinish(hDropInfo);
 	CDialog::OnDropFiles(hDropInfo);
 
+	NoteDlg dlg;
+	if (dlg.DoModal() == IDOK)
+	{
+		m_strNote = dlg.m_strNote;
+	}
+
 	ImgMove(filePath);
 	UseGit();
 	m_strShowUrl = _T("https://github.com/hubojing/BlogImages/blob/master/") + m_strFileName + _T("?raw=true");
@@ -187,20 +193,15 @@ void CJingPicDlg::ImgMove(TCHAR* filePath)
 	int iPos = strfilePath.ReverseFind('\\');
 	int temp = strfilePath.GetLength();
 	m_strFileName = strfilePath.Right(strfilePath.GetLength() - iPos - 1);
-	int iPointPos = m_strFileName.ReverseFind('.');
-	CString strTargetPath = _T("E:\\BlogImage");
-	strTargetPath = strTargetPath + _T("\\") + m_strFileName;
-	BOOL m = CopyFile(filePath, strTargetPath, TRUE);
+	CString strNewName = m_strNote + _T("¡ª¡ª") + m_strFileName;
+	CString strTargetPath = _T("E:\\BlogImages");
+	strTargetPath = strTargetPath + _T("\\") + strNewName;
+	rename(filePath, strTargetPath);
+// 	BOOL m = CopyFile(filePath, strTargetPath, TRUE);
 }
 
 void CJingPicDlg::UseGit()
 {
-	NoteDlg dlg;
-	if (dlg.DoModal() == IDOK)
-	{
-		m_strNote = dlg.m_strNote;
-	}
-	
 	CString strNotes = m_strNote + _T("²©ÎÄÅäÍ¼");
 	char s[MAX_PATH];
 	sprintf_s(s, "%s %s", "E:\\AutoUpload.bat", strNotes);
