@@ -182,7 +182,7 @@ void CJingPicDlg::OnDropFiles(HDROP hDropInfo)
 
 	ImgMove(filePath);
 	UseGit();
-	m_strShowUrl = _T("https://github.com/hubojing/BlogImages/blob/master/") + m_strFileName + _T("?raw=true");
+	m_strShowUrl = _T("https://github.com/hubojing/BlogImages/blob/master/") + m_strNewName + _T("?raw=true");
 	SetDlgItemText(IDC_EDITURL, m_strShowUrl);
 }
 
@@ -192,10 +192,10 @@ void CJingPicDlg::ImgMove(TCHAR* filePath)
 	strfilePath.Format(_T("%s"), filePath);
 	int iPos = strfilePath.ReverseFind('\\');
 	int temp = strfilePath.GetLength();
-	m_strFileName = strfilePath.Right(strfilePath.GetLength() - iPos - 1);
-	CString strNewName = m_strNote + _T("！！") + m_strFileName;
+	CString strFileName = strfilePath.Right(strfilePath.GetLength() - iPos - 1);
+	m_strNewName = m_strNote + _T("！！") + strFileName;
 	CString strTargetPath = _T("E:\\BlogImages");
-	strTargetPath = strTargetPath + _T("\\") + strNewName;
+	strTargetPath = strTargetPath + _T("\\") + m_strNewName;
 	rename(filePath, strTargetPath);
 // 	BOOL m = CopyFile(filePath, strTargetPath, TRUE);
 }

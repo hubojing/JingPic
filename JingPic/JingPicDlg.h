@@ -39,7 +39,7 @@ protected:
 
 private:
 	CString m_strNote;//备注博文标题
-	CString m_strFileName;//每张图片名称（带后缀）
+	CString m_strNewName;//每张图片名称（带后缀）
 	CString m_strShowUrl;//外链完整地址
 
 	void UseGit();
